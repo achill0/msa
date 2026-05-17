@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ElementRef ,OnInit, ViewChild, HostListener} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: "app-index",
@@ -250,6 +251,7 @@ toggleLanguageMenu() {
 
 selectLanguage(lang: string) {
   this.selectedLanguage = lang;
+  environment.lang = lang
   this.languageMenuOpen = false;
 
   console.log('Selected language:', lang);
