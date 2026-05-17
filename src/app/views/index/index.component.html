@@ -1,0 +1,776 @@
+<!--Hero-->
+
+<div *ngIf="true">
+
+<div  class="bg-black"> 
+
+<!-- HEADER -->
+<header style="position: fixed;" class="w-full grid grid-cols-3 items-center px-6 lg:px-12 py-6 bg-black fixed z-20">
+  <!-- Left: Logo -->
+
+  <div class=" flex items-center space-x-3">
+    <img src="../../../assets/img/logoneon.png" alt="MS Logo" class="h-12" />
+  </div>
+
+  <!-- Center: Empty (grid column) -->
+  <div></div>
+
+  <!-- Right: Navigation (Desktop) -->
+<nav class="hidden lg:flex justify-end space-x-14 text-lg font-semibold whitespace-nowrap text-cyan-400" style="color:#00eaff">
+  
+  <a href="#hero"
+
+     class="neon-link"
+     [class.active]="activeSection === 'hero'"
+     (click)="scrollToSection('hero', $event)">{{ t.nav.home }}</a>
+
+  <a href="#services"
+     class="neon-link"
+     [class.active]="activeSection === 'services'"
+     (click)="scrollToSection('services', $event)">{{ t.nav.services }}</a>
+
+  <a href="#apropos"
+     class="neon-link"
+     [class.active]="activeSection === 'apropos'"
+     (click)="scrollToSection('apropos', $event)">{{ t.nav.about }}</a>
+
+
+  <a href="#contact"
+     class="neon-link"
+     [class.active]="activeSection === 'contact'"
+     (click)="scrollToSection('contact', $event)">{{ t.nav.contact }}</a>
+     <!-- Language Selector -->
+<div class="relative" >
+
+  <!-- Button -->
+  <button
+    (click)="toggleLanguageMenu()"
+    class="flex items-center gap-2 px-4 py-2 rounded-lg
+           border border-cyan-400/30 bg-white/5
+           hover:bg-white/10 transition-all duration-300"
+  >
+
+    <!-- Globe Icon -->
+    <i class="fas fa-globe text-cyan-300 text-sm"></i>
+
+    <!-- Current Language -->
+    <span class="text-white text-sm font-medium">
+      {{ selectedLanguage }}
+    </span>
+
+    <!-- Chevron -->
+    <i
+      class="fas fa-chevron-down text-xs text-cyan-300 transition-transform duration-300"
+      [class.rotate-180]="languageMenuOpen"
+    ></i>
+
+  </button>
+
+  <!-- Dropdown -->
+  <div
+    *ngIf="languageMenuOpen"
+    style="background-color: black;"
+    class="absolute right-0 mt-2 w-40
+             bg-[#111827] border border-cyan-400/20
+             rounded-xl shadow-2xl overflow-hidden z-50"
+  >
+
+    <!-- English -->
+    <button
+      (click)="selectLanguage('EN')"
+      class="w-full flex items-center gap-3 px-4 py-3
+             text-sm text-white hover:bg-cyan-400/10
+             transition-all duration-200"
+    >
+      <span>🇺🇸</span>
+      <span>English</span>
+    </button>
+
+    <!-- French -->
+    <button
+      (click)="selectLanguage('FR')"
+      class="w-full flex items-center gap-3 px-4 py-3
+             text-sm text-white hover:bg-cyan-400/10
+             transition-all duration-200"
+    >
+      <span>🇫🇷</span>
+      <span>Français</span>
+    </button>
+
+  </div>
+
+</div>
+</nav>
+
+
+  <!-- Right: Burger / Close Icon (Mobile) -->
+   <!-- Mobile Right Controls -->
+     
+<div
+  class="flex items-center gap-4 absolute right-4  -translate-y-1/2 lg:hidden"
+>
+  
+  <!-- Language Chooser -->
+  <div class="relative">
+
+    <!-- Button -->
+    <!-- Button -->
+<button
+  (click)="toggleLanguageMenu()"
+  class="flex items-center justify-between min-w-[95px]
+         gap-2 px-3 py-2 rounded-lg
+         border border-cyan-400/30 bg-white/5
+         hover:bg-white/10 transition-all duration-300"
+>
+
+  <!-- Globe Icon -->
+  <i
+    class="fas fa-globe flex-shrink-0 text-base inline-block"
+    style="display:inline-block !important; color:#67e8f9 ;"
+  ></i>
+
+  <!-- Current Language -->
+  <span class="text-white text-sm font-medium whitespace-nowrap">
+    {{ selectedLanguage }}
+  </span>
+
+  <!-- Chevron -->
+  <i
+    class="fas fa-chevron-down flex-shrink-0  text-sm inline-block transition-transform duration-300"
+    style="display:inline-block !important; color:#67e8f9 ;"
+    [class.rotate-180]="languageMenuOpen"
+  ></i>
+
+</button>
+    <!-- Dropdown -->
+    <div
+      *ngIf="languageMenuOpen"
+      style="z-index:999999;"
+      class="absolute right-0 mt-2 w-40
+             bg-[#111827] border border-cyan-400/20
+             rounded-xl shadow-2xl overflow-hidden  bg-black"
+    >
+
+      <!-- English -->
+      <button
+        (click)="selectLanguage('EN')"
+        class="w-full flex items-center gap-3 px-4 py-3
+               text-sm text-white hover:bg-cyan-400/10
+               transition-all duration-200"
+      >
+        <span>🇺🇸</span>
+        <span>English</span>
+      </button>
+
+      <!-- French -->
+      <button
+        (click)="selectLanguage('FR')"
+        class="w-full flex items-center gap-3 px-4 py-3
+               text-sm text-white hover:bg-cyan-400/10
+               transition-all duration-200"
+      >
+        <span>🇫🇷</span>
+        <span>Français</span>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Burger Menu Button -->
+  <button
+    (click)="toggleMenu()"
+    id="menu-btn"
+    class="block lg:hidden focus:outline-none"
+  >
+    <i *ngIf="!menuOpen" class="fas fa-bars fa-2x" style="color:#00eaff"></i>
+    <i *ngIf="menuOpen" class="fas fa-times fa-2x" style="color:#00eaff"></i>
+  </button>
+
+</div>
+  <!-- Mobile Menu (below header, pushes content down) -->
+
+</header>
+
+<!-- Overlay Mobile Menu -->
+<nav
+  *ngIf="menuOpen"
+  id="mobile-menu"
+        style="z-index:1000; position: fixed"
+
+  class="bg-black fixed inset-0 top-[80px] flex flex-col items-center justify-center space-y-8 text-xl font-semibold  mt-20 transition-all duration-500"
+  style="color: #00eaff;"
+>
+  <a
+    href="#hero"
+    class="neon-link"
+    [class.active]="activeSection === 'hero'"
+    (click)="scrollToSection('hero', $event,true)  "
+    >{{ t.nav.home }}</a
+  >
+
+  <a
+    href="#services"
+    class="neon-link"
+    [class.active]="activeSection === 'services'"
+    (click)="scrollToSection('services', $event,true)"
+    >{{ t.nav.services }}</a
+  >
+
+  <a
+    href="#apropos"
+    class="neon-link"
+    [class.active]="activeSection === 'apropos'"
+    (click)="scrollToSection('apropos', $event,true)"
+    >{{ t.nav.about }}</a
+  >
+
+  <a
+    href="#contact"
+    class="neon-link"
+    [class.active]="activeSection === 'contact'"
+    (click)="scrollToSection('contact', $event,true)"
+    >{{ t.nav.contact }}</a
+  >
+</nav>
+
+
+
+
+
+<!-- HERO SECTION -->
+ <div *ngIf="!menuOpen">
+<!-- HERO SECTION -->
+<section
+  id="hero"
+  class="relative flex flex-col md:flex-row items-center justify-between
+         w-full 
+         px-6 sm:px-8 lg:px-12
+         pt-28 pb-12
+         bg-black overflow-hidden
+         text-center md:text-left
+         gap-6 md:gap-10 lg:gap-16"
+>
+
+  <!-- LEFT -->
+  <div
+    class="w-full md:w-1/2 lg:w-1/2
+           max-w-xl
+           flex flex-col items-center md:items-start
+           space-y-5 md:space-y-6 z-10"
+  >
+
+    <!-- Title -->
+    <img
+      src="../../../assets/img/title.png"
+      alt="Digital Sphere"
+      class="w-[200px] sm:w-[280px] md:w-[340px] lg:w-[480px]"
+    />
+
+    <!-- Description -->
+    <p
+      class="text-base sm:text-lg md:text-xl leading-relaxed max-w-md"
+      style="color:#00eaff; text-shadow:0 0 8px rgba(34,211,238,0.7);"
+    >
+      {{ t.hero.description }}
+    </p>
+
+    <!-- CTA -->
+    <a
+      href="#contact"
+      (click)="scrollToSection('contact', $event)"
+      class="neon-button2 mt-2 md:mt-4"
+    >
+      {{ t.hero.button }}
+    </a>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div
+    class="w-full md:w-1/2 lg:w-1/2
+           flex justify-center items-center z-10"
+  >
+
+    <video
+      #n1
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      class="neon-video"
+    >
+      <source src="../../../assets/img/neonglobe.mp4" type="video/mp4" />
+    </video>
+
+  </div>
+
+</section>
+<style>
+  .neon-button2 {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 2px solid #00eaff;
+  border-radius: 14px;
+  color: #00eaff;
+  background: rgba(0, 234, 255, 0.05);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 234, 255, 0.3);
+}
+
+.neon-button2:hover {
+  background: rgba(0, 234, 255, 0.12);
+  box-shadow: 0 0 10px #00eaff,
+              0 0 20px #00eaff,
+              0 0 40px rgba(0, 234, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* VIDEO — smaller + controlled */
+.neon-video {
+  width: 100%;
+  max-width: 520px;   /* smaller default */
+  height: auto;
+  object-fit: contain;
+}
+
+/* iPad + tablets (force horizontal layout already handled via md:flex-row) */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .neon-video {
+    max-width: 420px;
+  }
+}
+
+/* small phones portrait spacing fix */
+@media (max-width: 640px) {
+  section#hero {
+    gap: 1.2rem;
+  }
+
+  .neon-video {
+    max-width: 320px;
+  }
+}
+
+/* very small height devices (landscape phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+  section#hero {
+    padding-top: 6rem;
+    padding-bottom: 2rem;
+  }
+
+  .neon-video {
+    max-width: 280px;
+  }
+}
+  </style>
+
+
+
+
+
+
+
+<section id="services"  style="z-index:1; position: relative" class="w-full -mt-24 py-16 bg-gradient-to-b from-black via-gray-900 to-black">
+<div class="max-w-6xl mx-auto px-6 text-center">
+<h2 class="text-4xl md:text-6xl font-semibold mb-4" style="color:#00eaff">{{ t.services.title }}</h2>
+<p class="text-lg md:text-2xl mb-12" style="color:#00eaff">{{ t.services.subtitle }}</p>
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+
+
+<div class="flex flex-col items-center text-center p-6 rounded-lg transform hover:-translate-y-2 transition">
+<div class="p-6 rounded-full bg-transparent mb-4" style="border:2px solid rgba(0,234,255,0.12);">
+<!-- Font Awesome icon -->
+<i class="fas fa-cogs fa-3x" style="color:#00eaff"></i>
+</div>
+<h3 class="text-xl font-medium mt-2" style="color:#00eaff">{{ t.services.webAppsTitle }}</h3>
+<p class="mt-2 text-sm leading-relaxed max-w-xs" style="color:#00eaff">{{ t.services.webAppsDesc }}</p>
+</div>
+
+
+<div class="flex flex-col items-center text-center p-6 rounded-lg transform hover:-translate-y-2 transition">
+<div class="p-6 rounded-full bg-transparent mb-4" style="border:2px solid rgba(0,234,255,0.12);">
+<i class="far fa-window-maximize fa-3x" style="color:#00eaff"></i>
+</div>
+<h3 class="text-xl font-medium mt-2" style="color:#00eaff">{{ t.services.showcaseTitle }}</h3>
+<p class="mt-2 text-sm leading-relaxed max-w-xs" style="color:#00eaff">{{ t.services.showcaseDesc }}</p>
+</div>
+
+
+<div class="flex flex-col items-center text-center p-6 rounded-lg transform hover:-translate-y-2 transition">
+<div class="p-6 rounded-full bg-transparent mb-4" style="border:2px solid rgba(0,234,255,0.12);">
+<i class="fas fa-shopping-cart fa-3x" style="color:#00eaff"></i>
+</div>
+<h3 class="text-xl font-medium mt-2" style="color:#00eaff">{{ t.services.ecommerceTitle }}</h3>
+<p class="mt-2 text-sm leading-relaxed max-w-xs" style="color:#00eaff">{{ t.services.ecommerceDesc }}</p>
+</div>
+
+
+<div class="flex flex-col items-center text-center p-6 rounded-lg transform hover:-translate-y-2 transition">
+<div class="p-6 rounded-full bg-transparent mb-4" style="border:2px solid rgba(0,234,255,0.12);">
+<i class="fas fa-arrow-right fa-3x" style="color:#00eaff"></i>
+</div>
+<h3 class="text-xl font-medium mt-2" style="color:#00eaff">{{ t.services.landingTitle }}</h3>
+<p class="mt-2 text-sm leading-relaxed max-w-xs" style="color:#00eaff">{{ t.services.landingDesc }}</p>
+</div>
+
+
+</div>
+</div>
+</section>
+
+
+
+
+<!--STRAAA-->
+<section
+  id="apropos"
+  class="text-justify flex flex-col lg:flex-row justify-between items-center p-10 rounded-2xl mt-12 mx-6 sm:mx-8 lg:mx-auto max-w-6xl bg-black"
+  style="
+    border: 2px solid #00eaff;
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.3);
+  "
+>
+  <!-- Left Text -->
+  <div class="lg:w-1/2 text-left space-y-6">
+    <h2
+      class="text-4xl font-bold uppercase"
+      style="color: #00eaff;"
+    >
+     {{ t.about.title }}
+    </h2>
+
+    <p
+      class="text-lg text-justify"
+      style="color: #00b7cc; text-shadow: 0 0 5px rgba(0, 183, 204, 0.3);"
+    >
+      {{ t.about.description }}
+    </p>
+  </div>
+
+  <!-- Right Image -->
+  <div class="lg:w-1/2 flex justify-center mt-10 lg:mt-0">
+    <img
+      src="../../../assets/img/pc.png"
+      alt="Wireframe Laptop"
+      class="max-w-[280px] sm:max-w-md"
+    />
+  </div>
+</section>
+
+
+
+
+<!-- SCRIPT -->
+
+<!--avvv-->
+<section
+id="contact"
+  class="flex flex-col lg:flex-row justify-between items-center p-10 rounded-2xl mt-12 mx-auto max-w-6xl"
+  style="
+    background-color: black;
+  "
+>
+  <!-- Left Text -->
+  <div class="lg:w-1/2 text-left space-y-4">
+    <h2
+      class="text-3xl font-bold"
+      style="
+        color: #00eaff;
+        text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff;
+      "
+    >
+      {{ t.contact.title }}
+    </h2>
+
+    <p
+      class="text-lg leading-relaxed"
+      style="color: #00b7cc; text-shadow: 0 0 5px rgba(0, 183, 204, 0.3);"
+    >
+     {{ t.contact.description }}
+    </p>
+  </div>
+
+  <!-- Right Buttons -->
+  <div class="lg:w-1/2 flex flex-col items-center gap-6 mt-10 lg:mt-0">
+    <!-- Email Button -->
+    <div
+      class="flex items-center justify-between w-80 rounded-full px-6 py-3"
+      style="
+        border: 2px solid #00eaff;
+        box-shadow: 0 0 20px rgba(0, 234, 255, 0.3);
+        background-color: rgba(0, 0, 0, 0.8);
+      "
+    >
+      <div class="flex items-center space-x-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="#00eaff"
+          stroke-width="2"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 8l9 6 9-6M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z"
+          />
+        </svg>
+
+        <div
+          class="h-8 w-[2px]"
+          style="background-color: #00eaff; box-shadow: 0 0 6px #00eaff;"
+        ></div>
+
+        <p
+          class="text-base font-medium"
+          style="color: #00eaff; text-shadow: 0 0 8px #00eaff;"
+        >
+          Email : ms.agencycnt@gmail.com
+        </p>
+      </div>
+    </div>
+
+    <!-- Phone Button -->
+    <div
+      class="flex items-center justify-between w-80 rounded-full px-6 py-3"
+      style="
+        border: 2px solid #00eaff;
+        box-shadow: 0 0 20px rgba(0, 234, 255, 0.3);
+        background-color: rgba(0, 0, 0, 0.8);
+      "
+    >
+      <div class="flex items-center space-x-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="#00eaff"
+          stroke-width="2"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M2 5a1 1 0 011-1h4.28a1 1 0 01.948.684l1.49 4.472a1 1 0 01-.272.982l-2.118 2.118a11.037 11.037 0 005.657 5.657l2.118-2.118a1 1 0 01.982-.272l4.472 1.49A1 1 0 0120 21h-3a1 1 0 01-1-1v-.5"
+          />
+        </svg>
+
+        <div
+          class="h-8 w-[2px]"
+          style="background-color: #00eaff; box-shadow: 0 0 6px #00eaff;"
+        ></div>
+
+        <p
+          class="text-base font-medium"
+          style="color: #00eaff; text-shadow: 0 0 8px #00eaff;"
+        >
+          Phone : +212 78 47 34 712
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- NEON STYLE (Optional extra effects) -->
+
+<hr style=" border-color:#00a0c8"/>
+<footer class="bg-black shadow-[0_0_20px_#00eaff]">
+
+  <div class="px-6 lg:px-12 mx-auto py-10">
+
+    <!-- Main Footer Content -->
+    <div class="flex flex-col items-center text-center lg:flex-row lg:justify-between lg:items-start lg:text-left gap-10">
+
+      <!-- Logo -->
+      <div class="flex justify-center">
+        <img
+          src="../../../assets/img/logo_ms.png"
+          alt="MS Agency Logo"
+          class="h-20"
+        />
+      </div>
+
+      <!-- Links -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full lg:w-auto">
+
+        <!-- Services -->
+        <div>
+          <h2
+            class="mb-4 text-sm font-semibold uppercase"
+            style="color:#00eaff;"
+          >
+            {{ t.footer.services }}
+          </h2>
+
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="#"
+                (click)="scrollToSection('services', $event)"
+                class="hover:underline"
+                style="color:#00a0c8;"
+              >
+                {{ t.footer.webDev }}
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                (click)="scrollToSection('apropos', $event)"
+                class="hover:underline"
+                style="color:#00a0c8;"
+              >
+                {{ t.footer.consulting }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Website Creation -->
+        <div>
+          <h2
+            class="mb-4 text-sm font-semibold uppercase"
+            style="color:#00eaff;"
+          >
+            {{ t.footer.websiteCreation }}
+          </h2>
+
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="#"
+                (click)="scrollToSection('apropos', $event)"
+                class="hover:underline"
+                style="color:#00a0c8;"
+              >
+                {{ t.footer.digitalAgency }}
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="#"
+                (click)="scrollToSection('services', $event)"
+                class="hover:underline"
+                style="color:#00a0c8;"
+              >
+                {{ t.footer.webApps }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="mt-10  pt-6 text-center">
+      <span
+        class="text-sm"
+        style="color:#00a0c8;"
+      >
+        © 2026
+        <span style="color:#00eaff;">MS Agency</span>.
+        {{ t.footer.rights }}
+      </span>
+    </div>
+
+  </div>
+
+</footer>
+</div>
+
+</div>
+</div>
+<style>
+  
+  .neon-link {
+  color:#00eaff;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.neon-link:hover {
+  text-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff;
+}
+
+.neon-link.active {
+  text-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff;
+  font-weight: 600;
+}
+
+header {
+  box-shadow: 0 2px 20px rgba(0, 234, 255, 0.1);
+}
+
+button i {
+  transition: transform 0.3s ease;
+}
+
+button:hover i {
+  transform: rotate(90deg);
+}
+
+#mobile-menu {
+  animation: slideDown 0.4s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+<style>
+  .neon-link {
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.neon-link.active {
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff, 0 0 30px #00eaff;
+}
+
+.neon-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #00eaff;
+  box-shadow: 0 0 8px #00eaff, 0 0 12px #00eaff;
+  transition: width 0.3s ease;
+}
+
+.neon-link:hover::after,
+.neon-link.active::after {
+  width: 100%;
+}
+
+</style>
+
+<style>
+  
+</style>
+
+
+
+
